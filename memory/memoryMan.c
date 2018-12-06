@@ -75,5 +75,9 @@ void memoryCompaction(){
 	//TODO//
 
 	//test comment// 
+
+	// was nun
+
+
 }
 
