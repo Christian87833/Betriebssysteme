@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include "bs_types.h"
 #include "globals.h"
+#include "memorysidekick.h"
 
 typedef struct List{
 	bool free;
