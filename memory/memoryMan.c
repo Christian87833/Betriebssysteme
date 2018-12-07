@@ -8,7 +8,6 @@ typedef struct List{
 	bool free;
 	unsigned size;
 	PCB_t* process;
-	//struct List* last;
 	struct List* next;
 } ListEntry_t;
 
@@ -16,16 +15,18 @@ typedef struct List{
 ListEntry_t firstListEntry;
 
 
-static void initList() {
+
+void initList();
+void addProcessRec(PCB_t* process, ListEntry_t* currentEntry);
+void addProcess(PCB_t* process);
+void memoryCompaction();
+
+
+
+void initList() {
 	firstListEntry.free = true;
 	firstListEntry.size = MEMORY_SIZE;
 	firstListEntry.next = NULL;
-	//list.last = NULL;
-}
-
-
-void addProcess(PCB_t* process){
-	addProcessRec(process, &firstListEntry);
 }
 
 
@@ -68,8 +69,12 @@ void addProcessRec(PCB_t* process, ListEntry_t* currentEntry) {
 		addProcessRec(process, &firstListEntry);
 	}
 	else {
-		addProcess(process, currentEntry->next); //verbesserbar?
+		addProcessRec(process, currentEntry->next); //verbesserbar?
 	}
+}
+
+void addProcess(PCB_t* process) {
+	addProcessRec(process, &firstListEntry);
 }
 
 //Prozess Loeschen
@@ -102,13 +107,14 @@ void memoryCompaction(){
 
 	//Einmal die ganze Liste durch
 	while (currentEntry->next != NULL) {
-		if (!currentEntry->free && lastEntry->free) {
+
+		if (!currentEntry->free && lastEntry != NULL && lastEntry->free) {
 			removeProcess(currentEntry->process);
 			addProcess(currentEntry->process);
 		}
-	}
-	
 
+		lastEntry = currentEntry;
+	}
 }
 
 void speicherGraphischAusgeben() {

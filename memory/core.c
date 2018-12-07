@@ -14,6 +14,7 @@
 #include "loader.h"
 #include "core.h"
 #include "executer.h"
+#include "memoryMan.h"
 
 
 
@@ -72,7 +73,7 @@ void coreLoop(void)
 						//EDITED
 
 						addProcess(&processTable[newPid]);
-
+						speicherGraphischAusgeben();
 						//END EDIT
 						processTable[newPid].status = running;	// all active processes are marked active
 						runningCount++;						// and add to number of running processes
