@@ -71,7 +71,7 @@ void coreLoop(void)
 					if (usedMemory + processTable[newPid].size <= MEMORY_SIZE)
 					{	// enough memory available, and location in memory found: start process
 						//EDITED
-
+						
 						addProcess(&processTable[newPid]);
 						speicherGraphischAusgeben();
 						//END EDIT

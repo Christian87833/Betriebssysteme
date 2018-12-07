@@ -14,8 +14,9 @@ typedef struct List{
 
 
 ListEntry_t firstListEntry;
+ListEntry_t* processList;
 
-void initList();
+void initilList();
 void addProcessRec(PCB_t* process, ListEntry_t* currentEntry);
 void addProcess(PCB_t* process);
 void memoryCompaction();
@@ -26,39 +27,53 @@ void initilList() {
 	firstListEntry.free = true;
 	firstListEntry.size = MEMORY_SIZE;
 	firstListEntry.next = NULL;
+	processList = (ListEntry_t*)malloc(MAX_PROCESSES * sizeof(ListEntry_t));
 }
 
+static unsigned processCount = 0;
 
 void addProcessRec(PCB_t* process, ListEntry_t* currentEntry) {
 
 	
-	if (currentEntry->free && currentEntry->size >= process->size){
 
+	if (currentEntry->free && currentEntry->size >= process->size){
+		processCount++;
+		printf("if 1\n");
 		//Luecke und Einfuege Prozess gleich gross
 		if (currentEntry->size == process->size){
+			printf("if 2\n");
 			currentEntry->process = process;
 			currentEntry->free = false;
+			currentEntry->size = process->size;
 			process->baseRegister = //vorheriger eintrag
 				process->limitRegister = process->baseRegister + process->size;
-		}
-		else {
-			//Leerer Eintrag
-			ListEntry_t newSpace;
-			newSpace.free = true;
-			newSpace.size = currentEntry->size - process->size;
-			newSpace.process = NULL;
-
-			//Lueck zum Prozess umgestalten
-			currentEntry->process = process;
-			currentEntry->free = false;
+		} else {
+			printf("else 1\n");
+			//Neuer Eintrag
+			(processList + (processCount * sizeof(ListEntry_t)))->free = false;
+			(processList + (processCount * sizeof(ListEntry_t)))->size = process->size;
+			(processList + (processCount * sizeof(ListEntry_t)))->process = process;
 			
 
-			//Pointer neu setzen
-			ListEntry_t* temp = currentEntry->next; //Pointer von freier Stelle auf naechste Stelle
-			currentEntry->size = process->size;
-			currentEntry->next = &newSpace;
+			//Lueck zum Prozess umgestalten
+			currentEntry->free = true;
+			currentEntry->size = currentEntry->size - process->size;
 
-			newSpace.next = temp;
+			//Pointer neu setzen
+			if (currentEntry->next == NULL) {
+
+				currentEntry->next = (processList + (processCount * sizeof(ListEntry_t)));
+				(processList + (processCount * sizeof(ListEntry_t)))->next = NULL;
+				
+				printf("-------%d\n", processCount);
+				printf("if 3\n");
+			}
+			else {
+				ListEntry_t* temp = currentEntry->next; 
+				currentEntry->next = (processList + (processCount * sizeof(ListEntry_t)));
+				(processList + (processCount * sizeof(ListEntry_t)))->next = temp;
+				printf("else 2\n");
+			}
 
 		}
 
@@ -120,23 +135,30 @@ void memoryCompaction(){
 void speicherGraphischAusgeben() {
 
 	ListEntry_t* currentEntry = &firstListEntry;
+	printf("+++++++++++++Speicher++++++++++++\n");
 
-
-	printf("+++++++++++++Speicher+++++++++++++\n");
 	//Einmal die ganze Liste durch
-	while (currentEntry->next != NULL) {
+	do {
+
+		printf("beginning of print\n");
 		if (currentEntry->free) {
-			printf("+\t\tFREE SPACE\t\t+\n");
-			printf("+\t\tSIZE: %d\t\t+\n", currentEntry->size);
-			printf("++++++++++++++++++++++++++++++++++++\n");
+			printf("+\t\tFREE SPACE\t+\n");
+			printf("+\t\tSIZE: %d\t+\n", currentEntry->size);
+			printf("+++++++++++++++++++++++++++++++++\n");
 		}
 		else {
-			printf("+\t\tALLOCATED SPACE\t\t+\n");
-			printf("+\t\tSIZE: %d\t\t+\n", currentEntry->size);
-			printf("+\t\tPID: %d\t\t+\n", currentEntry->process->pid);
-			printf("++++++++++++++++++++++++++++++++++++\n");
+			printf("+\t\tALLOCATED SPACE\t+\n");
+			printf("+\t\tSIZE: %d\t+\n", currentEntry->size);
+			printf("+\t\tPID: %d\t+\n", currentEntry->process->pid);
+			printf("+++++++++++++++++++++++++++++++++\n");
+		}
+		if (currentEntry->next != NULL) {
+			currentEntry = currentEntry->next;
+		}
+		else {
+			break;
 		}
 		
-	}
+	} while (true);
 }
 

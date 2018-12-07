@@ -37,6 +37,7 @@ int main(int argc, char *argv[])
 
 	//EDITED 
 	initilList();
+	speicherGraphischAusgeben();
 	//END EDIT
 
 
