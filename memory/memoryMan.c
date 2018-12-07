@@ -74,11 +74,7 @@ void addProcessRec(PCB_t* process, ListEntry_t* currentEntry) {
 
 void memoryCompaction(){
 	//TODO//
-
-	//test comment// 
-
-	// was nun
-	//test
+	
 
 }
 
