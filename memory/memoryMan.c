@@ -111,3 +111,26 @@ void memoryCompaction(){
 
 }
 
+void speicherGraphischAusgeben() {
+
+	ListEntry_t* currentEntry = &firstListEntry;
+
+
+	printf("+++++++++++++Speicher+++++++++++++\n");
+	//Einmal die ganze Liste durch
+	while (currentEntry->next != NULL) {
+		if (currentEntry->free) {
+			printf("+\t\tFREE SPACE\t\t+\n");
+			printf("+\t\tSIZE: %d\t\t+\n", currentEntry->size);
+			printf("++++++++++++++++++++++++++++++++++++\n");
+		}
+		else {
+			printf("+\t\tALLOCATED SPACE\t\t+\n");
+			printf("+\t\tSIZE: %d\t\t+\n", currentEntry->size);
+			printf("+\t\tPID: %d\t\t+\n", currentEntry->process->pid);
+			printf("++++++++++++++++++++++++++++++++++++\n");
+		}
+		
+	}
+}
+
