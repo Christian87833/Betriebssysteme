@@ -1,17 +1,35 @@
-z:\visual studio 2013\projects\memory\debug\vc120.pdb
-z:\visual studio 2013\projects\memory\debug\vc120.idb
-z:\visual studio 2013\projects\memory\debug\core.obj
-z:\visual studio 2013\projects\memory\debug\dispatcher.obj
-z:\visual studio 2013\projects\memory\debug\executer.obj
-z:\visual studio 2013\projects\memory\debug\loader.obj
-z:\visual studio 2013\projects\memory\debug\log.obj
-z:\visual studio 2013\projects\memory\debug\main.obj
-z:\visual studio 2013\projects\memory\debug\memory.ilk
-z:\visual studio 2013\projects\memory\debug\memory.exe
-z:\visual studio 2013\projects\memory\debug\memory.pdb
-z:\visual studio 2013\projects\memory\debug\memory.tlog\cl.command.1.tlog
-z:\visual studio 2013\projects\memory\debug\memory.tlog\cl.read.1.tlog
-z:\visual studio 2013\projects\memory\debug\memory.tlog\cl.write.1.tlog
-z:\visual studio 2013\projects\memory\debug\memory.tlog\link.command.1.tlog
-z:\visual studio 2013\projects\memory\debug\memory.tlog\link.read.1.tlog
-z:\visual studio 2013\projects\memory\debug\memory.tlog\link.write.1.tlog
+z:\3 semester info\betriebssysteme\memory\debug\vc120.pdb
+z:\3 semester info\betriebssysteme\memory\debug\vc120.idb
+z:\3 semester info\betriebssysteme\memory\debug\core.obj
+z:\3 semester info\betriebssysteme\memory\debug\dispatcher.obj
+z:\3 semester info\betriebssysteme\memory\debug\executer.obj
+z:\3 semester info\betriebssysteme\memory\debug\loader.obj
+z:\3 semester info\betriebssysteme\memory\debug\log.obj
+z:\3 semester info\betriebssysteme\memory\debug\main.obj
+c:\users\christian\source\repos\betriebssysteme\memory\debug\vc141.pdb
+c:\users\christian\source\repos\betriebssysteme\memory\debug\vc141.idb
+c:\users\christian\source\repos\betriebssysteme\memory\debug\log.obj
+c:\users\christian\source\repos\betriebssysteme\memory\debug\loader.obj
+c:\users\christian\source\repos\betriebssysteme\memory\debug\executer.obj
+c:\users\christian\source\repos\betriebssysteme\memory\debug\dispatcher.obj
+c:\users\christian\source\repos\betriebssysteme\memory\debug\core.obj
+c:\users\christian\source\repos\betriebssysteme\memory\debug\memoryman.obj
+c:\users\christian\source\repos\betriebssysteme\memory\debug\main.obj
+z:\3 semester info\betriebssysteme\memory\debug\memory.ilk
+z:\3 semester info\betriebssysteme\memory\debug\memory.exe
+z:\3 semester info\betriebssysteme\memory\debug\memory.pdb
+c:\users\christian\source\repos\betriebssysteme\memory\debug\lnk{68081eb8-6b6a-40c6-9ad6-1fe49cf3a346}.tmp
+c:\users\christian\source\repos\betriebssysteme\memory\debug\vc120.idb
+c:\users\christian\source\repos\betriebssysteme\memory\debug\memory.pdb
+c:\users\christian\source\repos\betriebssysteme\memory\debug\vc120.pdb
+c:\users\christian\source\repos\betriebssysteme\memory\debug\memory.tlog\cl.command.1.tlog
+c:\users\christian\source\repos\betriebssysteme\memory\debug\memory.tlog\cl.read.1.tlog
+c:\users\christian\source\repos\betriebssysteme\memory\debug\memory.tlog\cl.write.1.tlog
+c:\users\christian\source\repos\betriebssysteme\memory\debug\memory.tlog\link-cvtres.read.1.tlog
+c:\users\christian\source\repos\betriebssysteme\memory\debug\memory.tlog\link-cvtres.write.1.tlog
+c:\users\christian\source\repos\betriebssysteme\memory\debug\memory.tlog\link-rc.read.1.tlog
+c:\users\christian\source\repos\betriebssysteme\memory\debug\memory.tlog\link-rc.write.1.tlog
+c:\users\christian\source\repos\betriebssysteme\memory\debug\memory.tlog\link.command.1.tlog
+c:\users\christian\source\repos\betriebssysteme\memory\debug\memory.tlog\link.delete.1.tlog
+c:\users\christian\source\repos\betriebssysteme\memory\debug\memory.tlog\link.read.1.tlog
+c:\users\christian\source\repos\betriebssysteme\memory\debug\memory.tlog\link.write.1.tlog

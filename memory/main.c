@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
 
 
 	//EDITED 
-	initList();
+	initilList();
 	//END EDIT
 
 

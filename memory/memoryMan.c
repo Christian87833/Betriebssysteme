@@ -3,6 +3,7 @@
 #include "bs_types.h"
 #include "globals.h"
 #include "memorysidekick.h"
+#include "memorysidekick.h"
 
 typedef struct List{
 	bool free;
@@ -14,8 +15,6 @@ typedef struct List{
 
 ListEntry_t firstListEntry;
 
-
-
 void initList();
 void addProcessRec(PCB_t* process, ListEntry_t* currentEntry);
 void addProcess(PCB_t* process);
@@ -23,7 +22,7 @@ void memoryCompaction();
 
 
 
-void initList() {
+void initilList() {
 	firstListEntry.free = true;
 	firstListEntry.size = MEMORY_SIZE;
 	firstListEntry.next = NULL;
@@ -116,6 +115,7 @@ void memoryCompaction(){
 		lastEntry = currentEntry;
 	}
 }
+
 
 void speicherGraphischAusgeben() {
 

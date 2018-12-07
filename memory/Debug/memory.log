@@ -1,3 +1,5 @@
-﻿  memoryMan.c
-main.obj : error LNK2019: Verweis auf nicht aufgelöstes externes Symbol "_initList" in Funktion "_main".
-C:\Users\Christian\source\repos\Betriebssysteme\memory\Debug\memory.exe : fatal error LNK1120: 1 nicht aufgelöste Externe
+﻿  core.c
+  main.c
+  memoryMan.c
+  Code wird generiert...
+  memory.vcxproj -> C:\Users\Christian\source\repos\Betriebssysteme\memory\Debug\memory.exe

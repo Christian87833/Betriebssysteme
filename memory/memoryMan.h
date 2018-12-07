@@ -7,11 +7,9 @@
 #include "globals.h"
 
 
-void initList();
+void initilList();
 void addProcess(PCB_t* process);
 void removeProcess(PCB_t* process);
 void speicherGraphischAusgeben();
 
 #endif /* __MEMORYMAN__ */
-
-//finaler Test.
