@@ -72,8 +72,41 @@ void addProcessRec(PCB_t* process, ListEntry_t* currentEntry) {
 	}
 }
 
+//Prozess Loeschen
+void removeProcess(PCB_t* process) {
+	ListEntry_t* currentEntry = &firstListEntry;
+	ListEntry_t* lastEntry;
+
+	//Ersmal den Prozess suchen
+	while (currentEntry->process->pid != process->pid && currentEntry->next != NULL) {
+		lastEntry = currentEntry;
+		currentEntry = currentEntry->next;
+	}
+	if (currentEntry->process->pid == process->pid) {
+		
+		if (currentEntry->next != NULL && currentEntry->next->free) {	//Folgt eine Freie Luecke? dann ist mein next pointer der der Luecke.
+			currentEntry->next = currentEntry->next->next; 
+		}
+		if (lastEntry != NULL && lastEntry->free) { //Wenn vorher eine Frei Luecke war, nimmt diese jetzt den gesammten bereich ein
+			lastEntry->next = currentEntry->next;
+		}
+	}
+	else {
+		//ERR PROCESS NICHT IN LISTE
+	}
+}
+
 void memoryCompaction(){
-	//TODO//
+	ListEntry_t* currentEntry = &firstListEntry;
+	ListEntry_t* lastEntry;
+
+	//Einmal die ganze Liste durch
+	while (currentEntry->next != NULL) {
+		if (!currentEntry->free && lastEntry->free) {
+			removeProcess(currentEntry->process);
+			addProcess(currentEntry->process);
+		}
+	}
 	
 
 }
