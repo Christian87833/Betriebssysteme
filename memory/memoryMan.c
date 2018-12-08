@@ -38,17 +38,14 @@ void addProcessRec(PCB_t* process, ListEntry_t* currentEntry) {
 
 	if (currentEntry->free && currentEntry->size >= process->size){
 		processCount++;
-		printf("if 1\n");
 		//Luecke und Einfuege Prozess gleich gross
 		if (currentEntry->size == process->size){
-			printf("if 2\n");
 			currentEntry->process = process;
 			currentEntry->free = false;
 			currentEntry->size = process->size;
 			process->baseRegister = //vorheriger eintrag
 				process->limitRegister = process->baseRegister + process->size;
 		} else {
-			printf("else 1\n");
 			//Neuer Eintrag
 			(processList + (processCount * sizeof(ListEntry_t)))->free = false;
 			(processList + (processCount * sizeof(ListEntry_t)))->size = process->size;
@@ -64,15 +61,11 @@ void addProcessRec(PCB_t* process, ListEntry_t* currentEntry) {
 
 				currentEntry->next = (processList + (processCount * sizeof(ListEntry_t)));
 				(processList + (processCount * sizeof(ListEntry_t)))->next = NULL;
-				
-				printf("-------%d\n", processCount);
-				printf("if 3\n");
 			}
 			else {
 				ListEntry_t* temp = currentEntry->next; 
 				currentEntry->next = (processList + (processCount * sizeof(ListEntry_t)));
 				(processList + (processCount * sizeof(ListEntry_t)))->next = temp;
-				printf("else 2\n");
 			}
 
 		}
@@ -95,7 +88,7 @@ void addProcess(PCB_t* process) {
 void removeProcess(PCB_t* process) {
 	ListEntry_t* currentEntry = &firstListEntry;
 	ListEntry_t* lastEntry;
-
+	printf("----------------DELETE\n");
 	//Ersmal den Prozess suchen
 	while (currentEntry->process->pid != process->pid && currentEntry->next != NULL) {
 		lastEntry = currentEntry;
@@ -140,7 +133,6 @@ void speicherGraphischAusgeben() {
 	//Einmal die ganze Liste durch
 	do {
 
-		printf("beginning of print\n");
 		if (currentEntry->free) {
 			printf("+\t\tFREE SPACE\t+\n");
 			printf("+\t\tSIZE: %d\t+\n", currentEntry->size);
@@ -148,10 +140,13 @@ void speicherGraphischAusgeben() {
 		}
 		else {
 			printf("+\t\tALLOCATED SPACE\t+\n");
-			printf("+\t\tSIZE: %d\t+\n", currentEntry->size);
+			printf("+\t\tSIZE: %d\t+\n", currentEntry->process->size);
 			printf("+\t\tPID: %d\t+\n", currentEntry->process->pid);
 			printf("+++++++++++++++++++++++++++++++++\n");
 		}
+
+		fflush(stdout);
+		
 		if (currentEntry->next != NULL) {
 			currentEntry = currentEntry->next;
 		}
