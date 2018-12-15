@@ -86,7 +86,7 @@ void coreLoop(void)
 					}
 					else
 					{
-
+						//core startet diesen Prozess nie wieder. Hier muss unser Prozess warteschlange eingreifen
 						processTable[newPid].status = blocked;	// not enough memory --> blocked due to "no ressources available"
 						logPidMem(newPid, "Process too large, not started");
 					}
