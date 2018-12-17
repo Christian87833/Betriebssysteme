@@ -1,9 +1,9 @@
  # OwnerID start duration size type
- 00 00 40 100 os
- 01 00 1 24 interactive
- 02 1 2 300 batch
- 03 1 10 300 batch
- 04 1 2 300 batch
- 05 2 5 100 batch
- 05 17 20 400 batch
- 06 18 20 400 batch
+ 00 00 500 100 os
+ 01 00 500 24 interactive
+ 02 01 02 300 batch
+ 03 01 500 300 batch
+ 04 01 02 300 batch
+ 05 02 05 100 batch
+ 05 200 20 400 batch
+ 06 200 20 400 batch

@@ -52,7 +52,11 @@ void addProcessRec(PCB_t* process, ListEntry_t* currentEntry) {
 
 	}
 	else if (currentEntry->next == NULL){
+		//printf("BEFORE\n");
+		speicherGraphischAusgeben();
 		memoryCompaction();
+		//printf("AFTER\n");
+		speicherGraphischAusgeben();
 		addProcessRec(process, &firstListEntry);
 	}
 	else {
@@ -71,7 +75,7 @@ void removeProcess(PCB_t* process) {
 	printf("----------------DELETE\n");
 
 	//Ersmal den Prozess suchen
-	while ((currentEntry->process == NULL || currentEntry->process->pid != process->pid) && currentEntry->next != NULL) { //prozess oder free space
+	while ((currentEntry->free || (currentEntry->process->pid != process->pid)) && (currentEntry->next != NULL)) { //prozess oder free space
 		lastEntry = currentEntry;
 		currentEntry = currentEntry->next;
 	}
@@ -80,6 +84,7 @@ void removeProcess(PCB_t* process) {
 		currentEntry->free = true;
 		currentEntry->process = NULL;
 
+		//davor
 		if (lastEntry != NULL && lastEntry->free) {
 			lastEntry->size += currentEntry->size;
 			if (currentEntry->next != NULL) {
@@ -99,7 +104,7 @@ void removeProcess(PCB_t* process) {
 				}
 			}
 		}
-
+		//nur danach
 		else if (currentEntry->next != NULL && currentEntry->next->free) {
 			currentEntry->size += currentEntry->next->size;
 			if (currentEntry->next->next != NULL) {
@@ -114,22 +119,38 @@ void removeProcess(PCB_t* process) {
 	else {
 		//ERR PROCESS NICHT IN LISTE
 	}
-	speicherGraphischAusgeben();
 }
 
 void memoryCompaction(){
 	ListEntry_t* currentEntry = &firstListEntry;
 	ListEntry_t* lastEntry;
 	printf("\n\n\nCOMPACTION--------------------\n\n\n");
+	int removedFree = 0;
 	//Einmal die ganze Liste durch
 	while (currentEntry->next != NULL) {
-
-		if (!currentEntry->free && lastEntry != NULL && lastEntry->free) {
-			removeProcess(currentEntry->process);
-			addProcess(currentEntry->process);
+		
+		if (currentEntry->free && currentEntry->next != NULL && !currentEntry->next->free) {
+			if (lastEntry == NULL) {
+				removedFree += currentEntry->size;
+				firstListEntry = *currentEntry->next;
+			} else {
+				removedFree += currentEntry->size;
+				lastEntry->next = currentEntry->next;
+			}
 		}
-
 		lastEntry = currentEntry;
+		currentEntry = currentEntry->next;
+	}
+	if (currentEntry->free) {
+		currentEntry->size += removedFree; 
+	}
+	else {
+		ListEntry_t* newSpace = (ListEntry_t*)malloc(sizeof(ListEntry_t));
+		newSpace->free = true;
+		newSpace->process = NULL;
+		newSpace->size = removedFree;
+		newSpace->next = NULL;
+		currentEntry->next = newSpace;
 	}
 }
 
