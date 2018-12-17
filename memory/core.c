@@ -73,9 +73,7 @@ void coreLoop(void)
 						//EDITED
 						
 						addProcess(&processTable[newPid]);
-						printf("%d\n\n", processTable[newPid].pid);
-						printf("%d\n\n", processTable[newPid].size);
-						speicherGraphischAusgeben();
+			
 						//END EDIT
 						processTable[newPid].status = running;	// all active processes are marked active
 						runningCount++;						// and add to number of running processes
@@ -112,7 +110,7 @@ void coreLoop(void)
 		systemTime = systemTime + delta;		// update system time by elapsed physical time
 		// now quit the completed process (if any)
 		/* +++ this needs to be extended for real memory management +++	*/
-		printf("--------------------------------------check");
+		
 		if (nextEvent == completed)	// check if a process needs to be terminated
 		{
 			usedMemory = usedMemory - processTable[eventPid].size;	// mark memory of the process free
