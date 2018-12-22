@@ -202,5 +202,6 @@ void speicherGraphischAusgeben() {
 		}
 		
 	} while (true);
+
 }
 
