@@ -28,12 +28,13 @@ void initWaitList() {
 
 
 void putt(PCB_t process) {
+	printf("\n\n\n put put putputput \n\n");
 	if (firstEntry.process == NULL) {
 		WaitList_t* newSpace = (WaitList_t*)malloc(sizeof(WaitList_t));
 		newSpace->process = &process;
 		newSpace->next = NULL;
 		lastEntry = *newSpace;
-		isEmpty = false;
+		firstEntry = *newSpace;
 	}
 	else {
 		WaitList_t* newSpace = (WaitList_t*)malloc(sizeof(WaitList_t));
@@ -42,10 +43,14 @@ void putt(PCB_t process) {
 		lastEntry.next = newSpace;
 		lastEntry = *newSpace;
 	}
+	isEmpty = false;
 	
 }
 
 
+int sizeToPull() {
+	return firstEntry.process->size;
+}
 
 PCB_t* pull() {
 	if (firstEntry.process != NULL) {

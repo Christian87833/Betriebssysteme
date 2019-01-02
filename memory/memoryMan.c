@@ -95,16 +95,16 @@ void removeProcess(PCB_t* process) {
 		//Jetzt noch benachbarte Luecken zusammen Legen bzw verschmelzen
 		if (lastEntry != NULL && lastEntry->free) { //Gab es eine Luecke davor
 			lastEntry->size += currentEntry->size;
-			if (currentEntry->next != NULL) {		
+			if (currentEntry->next != NULL) {
 				lastEntry->next = currentEntry->next;
 			}
 			else {
 				lastEntry->next = NULL;
 			}
-			
+
 			if (currentEntry->next != NULL && currentEntry->next->free) {	//und zusaetzlich noch danach
 				lastEntry->size += currentEntry->next->size;
-				if (currentEntry->next->next != NULL) {						
+				if (currentEntry->next->next != NULL) {
 					lastEntry->next = currentEntry->next->next;
 				}
 				else {
@@ -112,7 +112,7 @@ void removeProcess(PCB_t* process) {
 				}
 			}
 		}
-		
+
 		else if (currentEntry->next != NULL && currentEntry->next->free) {	//oder nur danach
 			currentEntry->size += currentEntry->next->size;
 			if (currentEntry->next->next != NULL) {
@@ -126,6 +126,15 @@ void removeProcess(PCB_t* process) {
 	}
 	else {
 		//ERR PROCESS NICHT IN LISTE
+	}
+
+	//Löschen ist fertig, jetzt schauen ob Aus der Warteliste ein Prozess gestartet werden kann...
+	if (emptyQueue()) {
+		printf("\nhhhhhhhhheelooo%d\n", (usedMemory + sizeToPull()));
+		if (usedMemory + sizeToPull() <= MEMORY_SIZE) {
+			printf("step 2 lksdjlksjdfhlaskdjfhlaksdjfhalksdjfhalksjdfhlaksjdh");
+			addProcess(pull());
+		}
 	}
 	speicherGraphischAusgeben();
 }

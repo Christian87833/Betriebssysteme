@@ -15,6 +15,7 @@
 #include "core.h"
 #include "executer.h"
 #include "memoryMan.h"
+#include "memoryQueue.h"
 
 
 
@@ -86,6 +87,11 @@ void coreLoop(void)
 					{
 						//core startet diesen Prozess nie wieder. Hier muss unser Prozess warteschlange eingreifen
 						processTable[newPid].status = blocked;	// not enough memory --> blocked due to "no ressources available"
+						// EDITED
+						printf("before  put");
+						putt(processTable[newPid]);
+						printf("after  put");
+						// END EDIT
 						logPidMem(newPid, "Process too large, not started");
 					}
 				}

@@ -1,3 +1,7 @@
 ﻿  memoryMan.c
-c:\users\christian\source\repos\betriebssysteme\memory\memoryman.c(37): warning C4029: Deklarierte Liste formaler Parameter weicht von der Definition ab
+c:\users\christian\source\repos\betriebssysteme\memory\memoryman.c(132): warning C4013: "emptyQueue" undefiniert; Annahme: extern mit Rückgabetyp int
+c:\users\christian\source\repos\betriebssysteme\memory\memoryman.c(134): warning C4013: "sizeToPull" undefiniert; Annahme: extern mit Rückgabetyp int
+c:\users\christian\source\repos\betriebssysteme\memory\memoryman.c(136): warning C4013: "pull" undefiniert; Annahme: extern mit Rückgabetyp int
+c:\users\christian\source\repos\betriebssysteme\memory\memoryman.c(136): warning C4047: "Funktion": Anzahl der Dereferenzierungen bei "PCB_t *" und "int" unterschiedlich
+c:\users\christian\source\repos\betriebssysteme\memory\memoryman.c(136): warning C4024: "addProcess": unterschiedliche Typen für formalen und übergebenen Parameter 1
   memory.vcxproj -> C:\Users\Christian\source\repos\Betriebssysteme\memory\Debug\memory.exe

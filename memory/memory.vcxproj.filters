@@ -39,6 +39,9 @@
     <ClInclude Include="memoryMan.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="memoryQueue.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core.c">

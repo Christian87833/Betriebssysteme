@@ -85,6 +85,7 @@
     <ClInclude Include="loader.h" />
     <ClInclude Include="log.h" />
     <ClInclude Include="memoryMan.h" />
+    <ClInclude Include="memoryQueue.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core.c" />

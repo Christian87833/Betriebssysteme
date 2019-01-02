@@ -7,7 +7,7 @@
 #include "core.h"
 #include <time.h>
 #include "memoryMan.h"
-
+#include "memoryQueue.h"
 
 /* ----------------------------------------------------------------	*/
 /* Declare global variables according to definition in globals.h	*/
@@ -37,6 +37,7 @@ int main(int argc, char *argv[])
 
 	//EDITED 
 	initilList();
+	initWaitList();
 	speicherGraphischAusgeben();
 	//END EDIT
 
