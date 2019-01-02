@@ -15,10 +15,18 @@ WaitList_t firstEntry; //erste Eintrag der Liste: Anker
 WaitList_t lastEntry; //erste Eintrag der Liste: Anker
 bool isEmpty;
 
+
+bool emptyQueue() {
+	return isEmpty;
+}
+
+
 void initWaitList() {
 	firstEntry.process = NULL;
 	isEmpty = true;
 }
+
+
 void putt(PCB_t process) {
 	if (firstEntry.process == NULL) {
 		WaitList_t* newSpace = (WaitList_t*)malloc(sizeof(WaitList_t));
@@ -36,6 +44,8 @@ void putt(PCB_t process) {
 	}
 	
 }
+
+
 
 PCB_t* pull() {
 	if (firstEntry.process != NULL) {

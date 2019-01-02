@@ -18,7 +18,7 @@ typedef struct List{
 ListEntry_t firstListEntry; //Anker Punkt, immer der erste Eintrag der Liste
 
 void initilList();
-void addProcessRec(PCB_t* process, ListEntry_t* currentEntry);
+void addProcessRec(PCB_t* process, ListEntry_t* currentEntry, int baseReg);
 void addProcess(PCB_t* process);
 void memoryCompaction();
 void speicherGraphischAusgeben();
@@ -34,7 +34,7 @@ void initilList() {
 }
 
 /*Rekursieve Methode die einen Prozess in die Erste Luecke steckt, in die er rein Passt*/
-void addProcessRec(PCB_t* process, ListEntry_t* currentEntry) {
+void addProcessRec(PCB_t* process, ListEntry_t* currentEntry, int baseReg) {
 
 	if (currentEntry->free && currentEntry->size >= process->size){	//Plaz frei und gross genug?
 		printf("--ADD\n");
@@ -43,7 +43,7 @@ void addProcessRec(PCB_t* process, ListEntry_t* currentEntry) {
 		currentEntry->process = process;
 		currentEntry->free = false;
 		currentEntry->size = process->size;
-		process->baseRegister = //vorheriger eintrag
+		process->baseRegister = baseReg;
 		process->limitRegister = process->baseRegister + process->size;
 
 		
@@ -61,16 +61,16 @@ void addProcessRec(PCB_t* process, ListEntry_t* currentEntry) {
 	
 		memoryCompaction();					//also memoryCompaction(), um freie Luecken zusammen zu fuegen.
 		
-		addProcessRec(process, &firstListEntry);	//Und erneut versuchen den Prozess unter zu Bringen(Suche beginnt von vorne)
+		addProcessRec(process, &firstListEntry, 0);	//Und erneut versuchen den Prozess unter zu Bringen(Suche beginnt von vorne)
 	}
 	else { //Noch nicht gefunden aber weitere Eintraege noch zu checken, also rekursiev aufruf mit dem naechsten Eintrag als kandidat
-		addProcessRec(process, currentEntry->next); //verbesserbar?
+		addProcessRec(process, currentEntry->next, (baseReg + currentEntry->size)); //verbesserbar?
 	}
 }
 
 /*Diese Methode wird aus core aufgerufen und startet die Rekursieve Methode*/
 void addProcess(PCB_t* process) {
-	addProcessRec(process, &firstListEntry);
+	addProcessRec(process, &firstListEntry, 0);
 }
 
 //Prozess Loeschen
@@ -153,6 +153,10 @@ void memoryCompaction(){
 				lastEntry->next = currentEntry->next;
 			}
 		}
+		else if (!currentEntry->free) {		//Anpassen der Base und Limit register
+			currentEntry->process->baseRegister -= removedFree;		
+			currentEntry->process->limitRegister -= removedFree;
+		}
 		lastEntry = currentEntry;
 		currentEntry = currentEntry->next;
 	}
@@ -189,6 +193,8 @@ void speicherGraphischAusgeben() {
 			printf("+\t\tALLOCATED SPACE\n");
 			printf("+\t\tSIZE: %d\n", currentEntry->process->size);
 			printf("+\t\tPID: %d\n", currentEntry->process->pid);
+			printf("+\t\tBaseReg: %d\n", currentEntry->process->baseRegister);
+			printf("+\t\tLimitReg: %d\n", currentEntry->process->limitRegister);
 			printf("+++++++++++++++++++++++++++++++++\n");
 		}
 

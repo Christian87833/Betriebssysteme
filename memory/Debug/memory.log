@@ -1,2 +1,3 @@
 ﻿  memoryMan.c
+c:\users\christian\source\repos\betriebssysteme\memory\memoryman.c(37): warning C4029: Deklarierte Liste formaler Parameter weicht von der Definition ab
   memory.vcxproj -> C:\Users\Christian\source\repos\Betriebssysteme\memory\Debug\memory.exe
