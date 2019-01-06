@@ -7,8 +7,8 @@
 
 
 typedef struct WaitList {
-	PCB_t* process;
-	struct WaitList* next;
+	PCB_t* process;			//der Prozess als pointer
+	struct WaitList* next;	//der naechste Prozess
 } WaitList_t;
 
 WaitList_t* firstEntry; //erste Eintrag der Liste: Anker
@@ -16,11 +16,12 @@ WaitList_t* lastEntry; //erste Eintrag der Liste: Anker
 bool isEmpty;
 int count;
 
+//zum pruefen ob es was zu pullen gibt
 bool* emptyQueue() {
 	return &isEmpty;
 }
 
-
+//Inizialisieren der Liste, beim Start und zuruecksetzen zum inizial zustand wenn letztes Element gpulled wird
 void initWaitList() {
 	WaitList_t* newSpace = (WaitList_t*)malloc(sizeof(WaitList_t));
 	firstEntry = newSpace;
@@ -29,15 +30,18 @@ void initWaitList() {
 	count = 0;
 }
 
-
+//Prozess In WarteSchlange einfuegen
 void putt(PCB_t* process) {
+	//Wenn vorher warteschlange leer war
 	if (firstEntry->process == NULL) {
 		WaitList_t* newSpace = (WaitList_t*)malloc(sizeof(WaitList_t));
 		newSpace->process = process;
 		newSpace->next = NULL;
 		lastEntry = newSpace;
 		firstEntry = newSpace;
+		isEmpty = false;	//Schlange nicht mehr leer
 	}
+	//sonnst an vorhandenen Schlange anhaengen
 	else {
 		WaitList_t* newSpace = (WaitList_t*)malloc(sizeof(WaitList_t));
 		newSpace->process = process;
@@ -45,27 +49,31 @@ void putt(PCB_t* process) {
 		lastEntry->next = newSpace;
 		lastEntry = newSpace;
 	}
-	count++;
-	isEmpty = false;
+	count++;		//zaehlt Elemente in Schlange
+		
 	
 }
 
-
+//zum Testen ob es genug platzt gibt um den naechsten Prozess zu laden
 int sizeToPull() {
 	return firstEntry->process->size;
 }
 
+
+//Aeltesten Prozess aus der Warteschlange bekommen
 PCB_t* pull() {
-	if (firstEntry->process != NULL) {
-		PCB_t* returnValue = firstEntry->process;
-		if (firstEntry->next != NULL) {
-			WaitList_t* temp = firstEntry->next;
+
+	if (firstEntry->process != NULL) {	//Vorraussetzung Es gibt einen Prozess in der Warteschlange
+		PCB_t* returnValue = firstEntry->process;	//der gesuchte Prozess (pointer) 
+		if (firstEntry->next != NULL) {	//wenn es weitere Elemente in der Warteschlange gab
+			WaitList_t* temp = firstEntry->next;	//ruecken diese nach
 			firstEntry = temp;
 		}
 
-		count--;
-		if (count == 0) {
-			initWaitList();
+		count--;	//Zaeher fuer Elemente in der Warteschlange runter zaehlen
+
+		if (count == 0) {	// war das der Letzte Prozess in Warteschlange?
+			initWaitList();	//Resetten der Warteschlange
 		}
 
 		//Copied from Core
@@ -80,10 +88,10 @@ PCB_t* pull() {
 		//End Copy
 
 
-		return returnValue;
+		return returnValue;	//Erst hier wird der Returnvalue aus Zeile 2 der Methode returned
 	}
 	else {
-		return NULL;
+		return NULL;	//leere Schlange
 	}
 
 }
