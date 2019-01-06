@@ -1,7 +1,7 @@
-﻿  memoryMan.c
-c:\users\christian\source\repos\betriebssysteme\memory\memoryman.c(132): warning C4013: "emptyQueue" undefiniert; Annahme: extern mit Rückgabetyp int
-c:\users\christian\source\repos\betriebssysteme\memory\memoryman.c(134): warning C4013: "sizeToPull" undefiniert; Annahme: extern mit Rückgabetyp int
-c:\users\christian\source\repos\betriebssysteme\memory\memoryman.c(136): warning C4013: "pull" undefiniert; Annahme: extern mit Rückgabetyp int
-c:\users\christian\source\repos\betriebssysteme\memory\memoryman.c(136): warning C4047: "Funktion": Anzahl der Dereferenzierungen bei "PCB_t *" und "int" unterschiedlich
-c:\users\christian\source\repos\betriebssysteme\memory\memoryman.c(136): warning C4024: "addProcess": unterschiedliche Typen für formalen und übergebenen Parameter 1
+﻿  core.c
+  memoryMan.c
+c:\users\christian\source\repos\betriebssysteme\memory\memoryman.c(135): warning C4129: "-": nicht erkannte Folge von Escapesequenz
+  memoryQueue.c
+c:\users\christian\source\repos\betriebssysteme\memory\memoryqueue.c(87): warning C4013: "flagNewProcessStarted" undefiniert; Annahme: extern mit Rückgabetyp int
+  Code wird generiert...
   memory.vcxproj -> C:\Users\Christian\source\repos\Betriebssysteme\memory\Debug\memory.exe

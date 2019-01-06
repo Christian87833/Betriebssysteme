@@ -9,10 +9,10 @@
 #include "memorysidekick.h"
 
 
-bool emptyQueue();
+bool* emptyQueue();
 
 void initWaitList();
-void putt(PCB_t process);
+void putt(PCB_t* process);
 PCB_t* pull();
 int sizeToPull();
 

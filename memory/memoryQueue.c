@@ -11,60 +11,81 @@ typedef struct WaitList {
 	struct WaitList* next;
 } WaitList_t;
 
-WaitList_t firstEntry; //erste Eintrag der Liste: Anker
-WaitList_t lastEntry; //erste Eintrag der Liste: Anker
+WaitList_t* firstEntry; //erste Eintrag der Liste: Anker
+WaitList_t* lastEntry; //erste Eintrag der Liste: Anker
 bool isEmpty;
+int count;
 
-
-bool emptyQueue() {
-	return isEmpty;
+bool* emptyQueue() {
+	return &isEmpty;
 }
 
 
 void initWaitList() {
-	firstEntry.process = NULL;
+	WaitList_t* newSpace = (WaitList_t*)malloc(sizeof(WaitList_t));
+	firstEntry = newSpace;
+	firstEntry->process = NULL;
 	isEmpty = true;
+	count = 0;
 }
 
 
-void putt(PCB_t process) {
-	printf("\n\n\n put put putputput \n\n");
-	if (firstEntry.process == NULL) {
+void putt(PCB_t* process) {
+	if (firstEntry->process == NULL) {
 		WaitList_t* newSpace = (WaitList_t*)malloc(sizeof(WaitList_t));
-		newSpace->process = &process;
+		newSpace->process = process;
 		newSpace->next = NULL;
-		lastEntry = *newSpace;
-		firstEntry = *newSpace;
+		lastEntry = newSpace;
+		firstEntry = newSpace;
 	}
 	else {
 		WaitList_t* newSpace = (WaitList_t*)malloc(sizeof(WaitList_t));
-		newSpace->process = &process;
+		newSpace->process = process;
 		newSpace->next = NULL;
-		lastEntry.next = newSpace;
-		lastEntry = *newSpace;
+		lastEntry->next = newSpace;
+		lastEntry = newSpace;
 	}
+	count++;
 	isEmpty = false;
 	
 }
 
 
 int sizeToPull() {
-	return firstEntry.process->size;
+	return firstEntry->process->size;
 }
 
 PCB_t* pull() {
-	if (firstEntry.process != NULL) {
-		return firstEntry.process;
-		if (firstEntry.next != NULL) {
-			WaitList_t temp = *(firstEntry.next);
+	if (firstEntry->process != NULL) {
+		PCB_t* returnValue = firstEntry->process;
+		if (firstEntry->next != NULL) {
+			WaitList_t temp = *(firstEntry->next);
 			free(&firstEntry);
-			firstEntry = temp;
+			firstEntry = &temp;
 		}
 		else {
-			free(&firstEntry);
-			firstEntry.process = NULL;
-			isEmpty = true;
+			//free(&firstEntry);
+			//firstEntry->process = NULL;
 		}
+
+		count--;
+		if (count == 0) {
+			initWaitList();
+		}
+
+		//Copied from Core
+
+		returnValue->status = running;	// all active processes are marked active
+		runningCount++;						// and add to number of running processes
+		usedMemory = usedMemory + returnValue->size;	// update amount of used memory
+		systemTime = systemTime + LOADING_DURATION;	// account for time used by OS
+		//logPidMem(newPid, "Process started and memory allocated");
+		flagNewProcessStarted();	// process is now a running process, not a candidate any more 
+
+		//End Copy
+
+
+		return returnValue;
 	}
 	else {
 		return NULL;

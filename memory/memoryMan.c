@@ -4,6 +4,7 @@
 #include "globals.h"
 #include "memorysidekick.h"
 #include "memorysidekick.h"
+#include "memoryQueue.h"
 
 /*Struct fuer Liste. Einfach Verkettet mit Informationen zu 
  Belegt? Groesse, Prozess und natuerlich der Naechste Eintrag*/
@@ -129,14 +130,17 @@ void removeProcess(PCB_t* process) {
 	}
 
 	//Löschen ist fertig, jetzt schauen ob Aus der Warteliste ein Prozess gestartet werden kann...
-	if (emptyQueue()) {
-		printf("\nhhhhhhhhheelooo%d\n", (usedMemory + sizeToPull()));
+	
+	if (!(*emptyQueue())) {
+		printf("\----------%d\n", (sizeToPull()));
 		if (usedMemory + sizeToPull() <= MEMORY_SIZE) {
-			printf("step 2 lksdjlksjdfhlaskdjfhlaksdjfhalksdjfhalksjdfhlaksjdh");
 			addProcess(pull());
 		}
 	}
-	speicherGraphischAusgeben();
+	else {
+		speicherGraphischAusgeben();
+	}
+	
 }
 
 
