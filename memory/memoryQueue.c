@@ -59,13 +59,8 @@ PCB_t* pull() {
 	if (firstEntry->process != NULL) {
 		PCB_t* returnValue = firstEntry->process;
 		if (firstEntry->next != NULL) {
-			WaitList_t temp = *(firstEntry->next);
-			free(&firstEntry);
-			firstEntry = &temp;
-		}
-		else {
-			//free(&firstEntry);
-			//firstEntry->process = NULL;
+			WaitList_t* temp = firstEntry->next;
+			firstEntry = temp;
 		}
 
 		count--;
@@ -79,7 +74,7 @@ PCB_t* pull() {
 		runningCount++;						// and add to number of running processes
 		usedMemory = usedMemory + returnValue->size;	// update amount of used memory
 		systemTime = systemTime + LOADING_DURATION;	// account for time used by OS
-		//logPidMem(newPid, "Process started and memory allocated");
+		logPidMem(returnValue->pid, "Process started and memory allocated");
 		flagNewProcessStarted();	// process is now a running process, not a candidate any more 
 
 		//End Copy
