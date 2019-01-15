@@ -32,6 +32,7 @@ void initWaitList() {
 
 //Prozess In WarteSchlange einfuegen
 void putt(PCB_t* process) {
+	printf("--PUSH PROCESS WITH SIZE: %d\n", process->size);
 	//Wenn vorher warteschlange leer war
 	if (firstEntry->process == NULL) {
 		WaitList_t* newSpace = (WaitList_t*)malloc(sizeof(WaitList_t));
@@ -62,6 +63,7 @@ int sizeToPull() {
 
 //Aeltesten Prozess aus der Warteschlange bekommen
 PCB_t* pull() {
+	count--;	//Zaeher fuer Elemente in der Warteschlange runter zaehlen
 
 	if (firstEntry->process != NULL) {	//Vorraussetzung Es gibt einen Prozess in der Warteschlange
 		PCB_t* returnValue = firstEntry->process;	//der gesuchte Prozess (pointer) 
@@ -69,9 +71,7 @@ PCB_t* pull() {
 			WaitList_t* temp = firstEntry->next;	//ruecken diese nach
 			firstEntry = temp;
 		}
-
-		count--;	//Zaeher fuer Elemente in der Warteschlange runter zaehlen
-
+		
 		if (count == 0) {	// war das der Letzte Prozess in Warteschlange?
 			initWaitList();	//Resetten der Warteschlange
 		}

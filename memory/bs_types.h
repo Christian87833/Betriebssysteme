@@ -45,7 +45,6 @@ typedef struct
 		unsigned usedCPU; 
 		//EDITED
 		unsigned baseRegister;
-		unsigned limitRegister;
 		//END EDITED
 		ProcessType_t type; 
 		Status_t status;

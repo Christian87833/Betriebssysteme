@@ -45,8 +45,6 @@ void addProcessRec(PCB_t* process, ListEntry_t* currentEntry, int baseReg) {
 		currentEntry->free = false;
 		currentEntry->size = process->size;
 		process->baseRegister = baseReg;
-		process->limitRegister = process->baseRegister + process->size;
-
 		
 		if (tempSize != process->size) {
 			ListEntry_t* newSpace = (ListEntry_t*)malloc(sizeof(ListEntry_t));
@@ -65,7 +63,7 @@ void addProcessRec(PCB_t* process, ListEntry_t* currentEntry, int baseReg) {
 		addProcessRec(process, &firstListEntry, 0);	//Und erneut versuchen den Prozess unter zu Bringen(Suche beginnt von vorne)
 	}
 	else { //Noch nicht gefunden aber weitere Eintraege noch zu checken, also rekursiev aufruf mit dem naechsten Eintrag als kandidat
-		addProcessRec(process, currentEntry->next, (baseReg + currentEntry->size)); //verbesserbar?
+		addProcessRec(process, currentEntry->next, (baseReg + currentEntry->size)); //rekursievaufruf
 	}
 }
 
@@ -132,8 +130,9 @@ void removeProcess(PCB_t* process) {
 	//Löschen ist fertig, jetzt schauen ob Aus der Warteliste ein Prozess gestartet werden kann...
 	
 	if (!(*emptyQueue())) {
-		printf("\----------%d\n", (sizeToPull()));
+		
 		if (usedMemory + sizeToPull() <= MEMORY_SIZE) {
+			printf("--PULL PROCESS WITH SIZE: %d\n", (sizeToPull()));
 			addProcess(pull());
 		}
 	}
@@ -147,7 +146,7 @@ void removeProcess(PCB_t* process) {
 //kompaktierung des Speichers
 void memoryCompaction(){
 	ListEntry_t* currentEntry = &firstListEntry;
-	ListEntry_t* lastEntry;
+	ListEntry_t* lastEntry = NULL;
 	printf("--COMP\n");
 	int removedFree = 0;	//diese Variable speichert die Groesse aller 'free Spaces' die wir nach hinten schicben wollen
 
@@ -168,7 +167,6 @@ void memoryCompaction(){
 		}
 		else if (!currentEntry->free) {		//Anpassen der Base und Limit register
 			currentEntry->process->baseRegister -= removedFree;		
-			currentEntry->process->limitRegister -= removedFree;
 		}
 		lastEntry = currentEntry;
 		currentEntry = currentEntry->next;
@@ -207,7 +205,6 @@ void speicherGraphischAusgeben() {
 			printf("+\t\tSIZE: %d\n", currentEntry->process->size);
 			printf("+\t\tPID: %d\n", currentEntry->process->pid);
 			printf("+\t\tBaseReg: %d\n", currentEntry->process->baseRegister);
-			printf("+\t\tLimitReg: %d\n", currentEntry->process->limitRegister);
 			printf("+++++++++++++++++++++++++++++++++\n");
 		}
 
