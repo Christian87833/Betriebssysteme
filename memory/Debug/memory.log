@@ -1,3 +1,3 @@
 ﻿  memoryQueue.c
-c:\users\christian\source\repos\betriebssysteme\memory\memoryqueue.c(86): warning C4013: "flagNewProcessStarted" undefiniert; Annahme: extern mit Rückgabetyp int
+c:\users\christian\source\repos\betriebssysteme\memory\memoryqueue.c(93): warning C4013: "flagNewProcessStarted" undefiniert; Annahme: extern mit Rückgabetyp int
   memory.vcxproj -> C:\Users\Christian\source\repos\Betriebssysteme\memory\Debug\memory.exe

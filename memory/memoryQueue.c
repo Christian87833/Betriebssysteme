@@ -35,26 +35,30 @@ void initWaitList() {
 
 //Prozess In WarteSchlange einfuegen
 void putt(PCB_t* process) {
-	printf("--PUSH PROCESS WITH SIZE: %d\n", process->size);
-	//Wenn vorher warteschlange leer war
-	if (firstEntry->process == NULL) {
-		WaitList_t* newSpace = (WaitList_t*)malloc(sizeof(WaitList_t));
-		newSpace->process = process;
-		newSpace->next = NULL;
-		lastEntry = newSpace;
-		firstEntry = newSpace;
-		isEmpty = false;	//Schlange nicht mehr leer
+	if (process->size <= MEMORY_SIZE) {
+		printf("--PUSH PROCESS WITH SIZE: %d\n", process->size);
+		//Wenn vorher warteschlange leer war
+		if (firstEntry->process == NULL) {
+			WaitList_t* newSpace = (WaitList_t*)malloc(sizeof(WaitList_t));
+			newSpace->process = process;
+			newSpace->next = NULL;
+			lastEntry = newSpace;
+			firstEntry = newSpace;
+			isEmpty = false;	//Schlange nicht mehr leer
+		}
+		//sonnst an vorhandenen Schlange anhaengen
+		else {
+			WaitList_t* newSpace = (WaitList_t*)malloc(sizeof(WaitList_t));
+			newSpace->process = process;
+			newSpace->next = NULL;
+			lastEntry->next = newSpace;
+			lastEntry = newSpace;
+		}
+		count++;		//zaehlt Elemente in Schlange
 	}
-	//sonnst an vorhandenen Schlange anhaengen
 	else {
-		WaitList_t* newSpace = (WaitList_t*)malloc(sizeof(WaitList_t));
-		newSpace->process = process;
-		newSpace->next = NULL;
-		lastEntry->next = newSpace;
-		lastEntry = newSpace;
+		printf("PUSH FAILED, PROCESS TO LARGE FOR MEMORY. SIZE: %d\n", process->size);
 	}
-	count++;		//zaehlt Elemente in Schlange
-		
 	
 }
 
