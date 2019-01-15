@@ -6,6 +6,10 @@
 #include "memorysidekick.h"
 #include "memoryQueue.h"
 
+/*
+Methoden die nicht speziell mit Namen Gekennzeichnet wurden, wurden in gemeinsamer Arbeit von Christian Weber und Jonathan Bohnet erstellt. 
+*/
+
 /*Struct fuer Liste. Einfach Verkettet mit Informationen zu 
  Belegt? Groesse, Prozess und natuerlich der Naechste Eintrag*/
 typedef struct List{
@@ -72,7 +76,7 @@ void addProcess(PCB_t* process) {
 	addProcessRec(process, &firstListEntry, 0);
 }
 
-//Prozess Loeschen
+//Prozess Loeschen, geschrieben von Christian Weber
 void removeProcess(PCB_t* process) {
 	ListEntry_t* currentEntry = &firstListEntry;
 	ListEntry_t* lastEntry = NULL;
@@ -143,7 +147,7 @@ void removeProcess(PCB_t* process) {
 }
 
 
-//kompaktierung des Speichers
+//kompaktierung des Speichers, geschrieben von Christian Weber
 void memoryCompaction(){
 	ListEntry_t* currentEntry = &firstListEntry;
 	ListEntry_t* lastEntry = NULL;
@@ -187,7 +191,7 @@ void memoryCompaction(){
 
 /*Diese Methode Orientiert sich an der Darstellungsweise des Speichers in Grafiken - wie in der Vorlesung verwendet
 Mit ihrer Hilfe kann man schnell und uebersichtlich erkennen wie der Speicher gerade aufgeteilt ist*/
-void speicherGraphischAusgeben() {
+void speicherGraphischAusgeben() {	//geschrieben von Christian Weber
 
 	ListEntry_t* currentEntry = &firstListEntry;
 	printf("+++++++++++++Speicher++++++++++++\n");

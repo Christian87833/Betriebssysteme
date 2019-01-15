@@ -5,6 +5,9 @@
 #include "memorysidekick.h"
 #include "memorysidekick.h"
 
+/*
+Methoden die nicht speziell mit Namen Gekennzeichnet wurden, wurden in gemeinsamer Arbeit von Christian Weber und Jonathan Bohnet erstellt.
+*/
 
 typedef struct WaitList {
 	PCB_t* process;			//der Prozess als pointer
